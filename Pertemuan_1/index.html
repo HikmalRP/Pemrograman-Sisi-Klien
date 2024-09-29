@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin</title>
+    <link rel="icon" href="icon.jpg">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <button>Log Out</button>
+        </header>
+
+        <div class="main">
+            <aside>
+                <h1>Admin Panel</h1>
+                <nav>
+                    <ul>
+                        <li><a href="#" style="color: white;">Dashboard</a></li>
+                        <li><a href="#" style="color: white;">Mahasiswa</a></li>
+                        <li><a href="#" style="color: white;">Settings</a></li>
+                    </ul>
+                </nav>
+            </aside>
+        
+            <div class="content">
+                <h2>Daftar Mahasiswa</h2>
+                <button onclick="openModal('add')">Tambah Mahasiswa</button>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>No.</th>
+                            <th>NIM</th>
+                            <th>Nama</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>A11.2022.14001</td>
+                            <td>Ambatu Singh</td>
+                            <td>
+                                <button class="edit-btn" onclick="openModal('edit', this)">Edit</button>
+                                <button class="delete-btn" onclick="deleteData(this)">Hapus</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>A11.2022.14002</td>
+                            <td>Donkam Harder</td>
+                            <td>
+                                <button class="edit-btn" onclick="openModal('edit', this)">Edit</button>
+                                <button class="delete-btn" onclick="deleteData(this)">Hapus</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>A11.2022.14003</td>
+                            <td>Rusdi Ardiansyah</td>
+                            <td>
+                                <button class="edit-btn" onclick="openModal('edit', this)">Edit</button>
+                                <button class="delete-btn" onclick="deleteData(this)">Hapus</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <footer>
+            &copy; 2024 Aku Admin
+        </footer>
+    </div>
+
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h3 id="modal-title">Tambah Mahasiswa</h3>
+            <label for="nim">NIM:</label>
+            <input type="text" id="nim" placeholder="NIM" />
+            <br><br>
+            <label for="nama">Nama:</label>
+            <input type="text" id="nama" placeholder="Nama" />
+            <br><br>
+            <div class="modal-footer">
+                <button onclick="saveData()">Simpan</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="deleteModal" class="modal">
+        <div class="modal-content">
+            <h3>Konfirmasi Hapus</h3>
+            <p>Apakah kamu yakin ingin menghapus Mahasiswa ini?</p>
+            <div class="modal-footer">
+                <button onclick="confirmDelete()">Ya</button>
+                <button onclick="closeDeleteModal()">Tidak</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
