@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin</title>
+    <link rel="icon" href="icon.jpg" />
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="bg-gray-100">
+    <div class="flex min-h-screen flex-row">
+      <!-- Sidebar -->
+      <aside class="bg-indigo-900 w-64 text-white">
+        <div class="p-4">
+          <h2 class="font-bold">Aplikasi Siakad</h2>
+          <nav class="mt-4 ml-4">
+            <ul>
+              <li><a href="#">Dashboard</a></li>
+              <li><a href="#">Mahasiswa</a></li>
+              <li><a href="#">Settings</a></li>
+            </ul>
+          </nav>
+        </div>
+      </aside>
+
+      <!-- Content -->
+      <div class="flex flex-col flex-1">
+        <!-- Header -->
+        <header class="bg-gray-200 p-4">
+          <div class="flex justify-end">
+            <button class="bg-blue-500 text-white px-4 py-2 rounded">
+              Logout
+            </button>
+          </div>
+        </header>
+
+        <!-- Main Content -->
+        <div class="flex justify-between p-4">
+          <h2 class="font-bold">List Mahasiswa</h2>
+          <button
+            id="btn-tambah"
+            class="bg-green-500 text-white px-4 py-2 rounded"
+          >
+            Tambah Mahasiswa
+          </button>
+        </div>
+
+        <!-- Tabel Mahasiswa -->
+        <div class="bg-white flex-grow">
+          <div class="bg-white p-6 rounded-lg shadow">
+            <table class="min-w-full table-auto">
+              <thead>
+                <tr class="bg-gray-200">
+                  <th class="px-4 py-2">No.</th>
+                  <th class="px-4 py-2">NIM</th>
+                  <th class="px-4 py-2">Nama</th>
+                  <th class="px-4 py-2">Aksi</th>
+                </tr>
+              </thead>
+              <tbody id="table-body">
+                <!-- Data Mahasiswa Default -->
+                <tr>
+                  <td class="border px-4 py-2">1</td>
+                  <td class="border px-4 py-2">A11.2022.14001</td>
+                  <td class="border px-4 py-2">Budiono Siregar</td>
+                  <td class="border px-4 py-2">
+                    <button
+                      class="btn-edit bg-yellow-500 text-white px-4 py-2 rounded"
+                      data-index="0"
+                    >
+                      Edit
+                    </button>
+                    <button
+                      class="btn-delete bg-red-500 text-white px-4 py-2 rounded"
+                      data-index="0"
+                    >
+                      Delete
+                    </button>
+                  </td>
+                </tr>
+                <tr class="bg-gray-200">
+                  <td class="border px-4 py-2">2</td>
+                  <td class="border px-4 py-2">A11.2022.14002</td>
+                  <td class="border px-4 py-2">Donkam Harder</td>
+                  <td class="border px-4 py-2">
+                    <button
+                      class="btn-edit bg-yellow-500 text-white px-4 py-2 rounded"
+                      data-index="1"
+                    >
+                      Edit
+                    </button>
+                    <button
+                      class="btn-delete bg-red-500 text-white px-4 py-2 rounded"
+                      data-index="1"
+                    >
+                      Delete
+                    </button>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="border px-4 py-2">3</td>
+                  <td class="border px-4 py-2">A11.2022.14003</td>
+                  <td class="border px-4 py-2">Rusdi Ardiansyah</td>
+                  <td class="border px-4 py-2">
+                    <button
+                      class="btn-edit bg-yellow-500 text-white px-4 py-2 rounded"
+                      data-index="2"
+                    >
+                      Edit
+                    </button>
+                    <button
+                      class="btn-delete bg-red-500 text-white px-4 py-2 rounded"
+                      data-index="2"
+                    >
+                      Delete
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="bg-indigo-900 text-center text-white">
+          &copy; Aku Admin
+        </footer>
+      </div>
+    </div>
+
+    <!-- Modal Tambah Mahasiswa -->
+    <div
+      id="modal-tambah"
+      class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center hidden"
+    >
+      <div class="bg-white p-6 rounded-lg shadow-lg w-1/3">
+        <form id="form-tambah">
+          <h1 class="font-bold text-2xl py-2">Tambah Mahasiswa</h1>
+          <div class="mb-4">
+            <label for="nama">Nama :</label>
+            <input
+              type="text"
+              id="input-nama"
+              class="w-full px-4 py-2 border rounded-lg"
+            />
+          </div>
+          <div class="mb-4">
+            <label for="nim">NIM :</label>
+            <input
+              type="text"
+              id="input-nim"
+              class="w-full px-4 py-2 border rounded-lg"
+            />
+          </div>
+          <div class="flex justify-end">
+            <button
+              type="button"
+              id="btn-batal"
+              class="bg-gray-500 text-white px-4 py-2 rounded mr-2"
+            >
+              Batal
+            </button>
+            <button
+              type="button"
+              id="btn-simpan"
+              class="bg-green-500 text-white px-4 py-2 rounded"
+            >
+              Simpan
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Modal Edit Mahasiswa -->
+    <div
+      id="modal-edit"
+      class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center hidden"
+    >
+      <div class="bg-white p-6 rounded-lg shadow-lg w-1/3">
+        <form id="form-edit">
+          <h1 class="font-bold text-2xl py-2">Edit User</h1>
+          <div class="mb-4">
+            <label for="edit-nama">Nama :</label>
+            <input
+              type="text"
+              id="edit-nama"
+              class="w-full px-4 py-2 border rounded-lg"
+            />
+          </div>
+          <div class="mb-4">
+            <label for="edit-nim">NIM :</label>
+            <input
+              type="text"
+              id="edit-nim"
+              class="w-full px-4 py-2 border rounded-lg"
+            />
+          </div>
+          <div class="flex justify-end">
+            <button
+              type="button"
+              id="btn-edit-batal"
+              class="bg-gray-500 text-white px-4 py-2 rounded mr-2"
+            >
+              Batal
+            </button>
+            <button
+              type="button"
+              id="btn-update"
+              class="bg-green-500 text-white px-4 py-2 rounded"
+            >
+              Simpan
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+      let mahasiswaList = [
+        { nama: "Budiono Siregar", nim: "A11.2022.14001" },
+        { nama: "Donkam Harder", nim: "A11.2022.14002" },
+        { nama: "Rusdi Ardiansyah", nim: "A11.2022.14003" },
+      ];
+      let currentIndex = -1;
+
+      // Show Modal Tambah Mahasiswa
+      $("#btn-tambah").click(function () {
+        $("#modal-tambah").removeClass("hidden");
+      });
+
+      // Batal Tambah Mahasiswa
+      $("#btn-batal").click(function () {
+        $("#modal-tambah").addClass("hidden");
+        clearForm();
+      });
+
+      // Simpan Mahasiswa Baru
+      $("#btn-simpan").click(function () {
+        let nama = $("#input-nama").val();
+        let nim = $("#input-nim").val();
+
+        if (nama && nim) {
+          mahasiswaList.push({ nama, nim });
+          renderTable();
+          $("#modal-tambah").addClass("hidden");
+          clearForm();
+        } else {
+          Swal.fire("Error", "Nama dan NIM harus diisi!", "error");
+        }
+      });
+
+      // Show Modal Edit Mahasiswa
+      $(document).on("click", ".btn-edit", function () {
+        currentIndex = $(this).data("index");
+        $("#edit-nama").val(mahasiswaList[currentIndex].nama);
+        $("#edit-nim").val(mahasiswaList[currentIndex].nim);
+        $("#modal-edit").removeClass("hidden");
+      });
+
+      // Batal Edit Mahasiswa
+      $("#btn-edit-batal").click(function () {
+        $("#modal-edit").addClass("hidden");
+      });
+
+      // Update Data Mahasiswa
+      $("#btn-update").click(function () {
+        let nama = $("#edit-nama").val();
+        let nim = $("#edit-nim").val();
+
+        if (nama && nim) {
+          mahasiswaList[currentIndex] = { nama, nim };
+          renderTable();
+          $("#modal-edit").addClass("hidden");
+        } else {
+          Swal.fire("Error", "Nama dan NIM harus diisi!", "error");
+        }
+      });
+
+      // Hapus Data Mahasiswa
+      $(document).on("click", ".btn-delete", function () {
+        let index = $(this).data("index");
+        Swal.fire({
+          title: "Apakah Anda yakin?",
+          text: "Anda tidak bisa mengembalikan data yang telah dihapus!",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#d33",
+          cancelButtonColor: "#3085d6",
+          confirmButtonText: "Ya, hapus!",
+          cancelButtonText: "Batal",
+        }).then((result) => {
+          if (result.isConfirmed) {
+            mahasiswaList.splice(index, 1);
+            renderTable();
+            Swal.fire("Dihapus!", "Data mahasiswa telah dihapus.", "success");
+          }
+        });
+      });
+
+      // Render Ulang Tabel
+      function renderTable() {
+        let tableBody = $("#table-body");
+        tableBody.empty();
+        mahasiswaList.forEach((mahasiswa, index) => {
+          tableBody.append(`
+                    <tr ${index % 2 === 1 ? 'class="bg-gray-200"' : ""}>
+                        <td class="border px-4 py-2">${index + 1}</td>
+                        <td class="border px-4 py-2">${mahasiswa.nim}</td>
+                        <td class="border px-4 py-2">${mahasiswa.nama}</td>
+                        <td class="border px-4 py-2">
+                            <button class="btn-edit bg-yellow-500 text-white px-4 py-2 rounded" data-index="${index}">Edit</button>
+                            <button class="btn-delete bg-red-500 text-white px-4 py-2 rounded" data-index="${index}">Delete</button>
+                        </td>
+                    </tr>
+                `);
+        });
+      }
+
+      // Clear Input Form Tambah
+      function clearForm() {
+        $("#input-nama").val("");
+        $("#input-nim").val("");
+      }
+
+      // Initial Render
+      renderTable();
+    </script>
+  </body>
+</html>
